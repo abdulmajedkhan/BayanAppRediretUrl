@@ -1,18 +1,33 @@
 <html>
-
 <head>
-     <script>
-      // Take everything after ? and append it to your app redirect
-      const query = window.location.search; 
-      const redirect = "com.bayaanapp://auth/" + query;
-      window.location = redirect;
-    </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-color: #f9f9f9;
+    }
+    .message {
+      font-size: 18px;
+      color: #333;
+    }
+  </style>
+  <script>
+    // Take everything after ? and append it to your app redirect
+    const query = window.location.search; 
+    const redirect = "com.bayaanapp://auth/" + query;
+    window.location = redirect;
+  </script>
 </head>
-
 <body>
-    Thanks for the login with amazon.Redirecting to the bayan app...
+  <div class="message">
+    Thanks for logging in with Amazon.<br/>
+    Redirecting to the Bayan app...
+  </div>
 </body>
-
-
 </html>
-
