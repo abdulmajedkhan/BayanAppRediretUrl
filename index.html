@@ -17,21 +17,24 @@
       color: #333;
     }
   </style>
-  <script>
-    // Delay redirect so user sees the message
-    window.onload = function() {
-      const query = window.location.search; 
-      const redirect = "com.bayaanapp://auth/" + query;
-      setTimeout(() => {
-        window.location = redirect;
-      }, 1500); // 1.5 seconds delay
-    };
-  </script>
 </head>
 <body>
   <div class="message">
     Thanks for logging in with Amazon.<br/>
     Redirecting to the Bayan app...
   </div>
+
+  <script>
+    // Run AFTER the page has loaded and text is visible
+    window.addEventListener("load", function () {
+      const query = window.location.search; 
+      const redirect = "com.bayaanapp://auth/" + query;
+
+      // Delay so user can see message
+      setTimeout(() => {
+        window.location.href = redirect;
+      }, 2000); // 2s delay
+    });
+  </script>
 </body>
 </html>
