@@ -1,11 +1,17 @@
 <html>
 
 <head>
-    <meta http-equiv="refresh" content="0;url=com.bayaanapp://auth/">
+     <script>
+      // Take everything after ? and append it to your app redirect
+      const query = window.location.search; 
+      const redirect = "com.bayaanapp://auth/" + query;
+      window.location = redirect;
+    </script>
 </head>
 
 <body>
     Redirecting...
 </body>
+
 
 </html>
