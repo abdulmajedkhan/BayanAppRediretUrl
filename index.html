@@ -18,10 +18,14 @@
     }
   </style>
   <script>
-    // Take everything after ? and append it to your app redirect
-    const query = window.location.search; 
-    const redirect = "com.bayaanapp://auth/" + query;
-    window.location = redirect;
+    // Delay redirect so user sees the message
+    window.onload = function() {
+      const query = window.location.search; 
+      const redirect = "com.bayaanapp://auth/" + query;
+      setTimeout(() => {
+        window.location = redirect;
+      }, 1500); // 1.5 seconds delay
+    };
   </script>
 </head>
 <body>
