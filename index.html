@@ -23,23 +23,24 @@
     Redirecting to the Bayan app...
   </div>
 
-  <script>
-    window.addEventListener("load", function () {
-      const query = window.location.search; // e.g. ?code=XYZ&scope=profile
+ <script>
+  window.addEventListener("load", function () {
+      const query = window.location.search; // ?code=XYZ
       const deepLink = "com.bayaanapp://auth" + query;
-
-      // Try auto-redirect
-      setTimeout(() => { window.location.href = deepLink; }, 1000);
+      // Try redirect
+      window.location.href = deepLink;
 
       // Fallback clickable link
       const link = document.createElement('a');
       link.href = deepLink;
       link.innerText = "Click here if you are not redirected";
       document.body.appendChild(link);
-    });
-  </script>
+  });
+</script>
+
 </body>
 </html>
+
 
 
 
