@@ -10,49 +10,40 @@
             const error = urlParams.get('error');
             
             console.log('🔍 OAuth Callback Debug:');
-            console.log('Code:', code);
+            console.log('Code present:', !!code);
             console.log('Error:', error);
             console.log('All params:', Object.fromEntries(urlParams));
             
             if (error) {
-                console.error('OAuth Error:', error, urlParams.get('error_description'));
-                document.body.innerHTML = `<h2>Login Error: ${error}</h2><p>Please try again.</p>`;
+                console.error('OAuth Error:', error);
+                // Redirect with error to app
+                const errorRedirect = `com.bayaanapp://?error=${encodeURIComponent(error)}&error_description=${encodeURIComponent(urlParams.get('error_description') || 'Unknown error')}`;
+                window.location.href = errorRedirect;
                 return;
             }
             
-            if (!code) {
-                console.error('No authorization code received');
-                document.body.innerHTML = '<h2>Login Failed</h2><p>No authorization code received.</p>';
-                return;
+            if (code) {
+                console.log('✅ Code received, redirecting to app...');
+                // SUCCESS: Redirect with code
+                const successRedirect = `com.bayaanapp://?code=${code}&state=${urlParams.get('state') || ''}`;
+                console.log('Redirect URL:', successRedirect);
+                window.location.href = successRedirect;
+            } else {
+                console.error('❌ No code received');
+                // No code - might be user cancellation or other issue
+                const cancelRedirect = `com.bayaanapp://?error=canceled&error_description=No authorization code received`;
+                window.location.href = cancelRedirect;
             }
-            
-            // SIMPLE redirect - just scheme with query parameters
-            const appDeepLink = `com.bayaanapp://?${urlParams.toString()}`;
-            console.log('Redirecting to:', appDeepLink);
-            
-            // Immediate redirect
-            window.location.href = appDeepLink;
-            
-            // Fallback after 3 seconds
-            setTimeout(() => {
-                document.body.innerHTML = `
-                    <div style="text-align: center; padding: 50px;">
-                        <h2>Redirecting to Bayaan...</h2>
-                        <p>If not redirected automatically:</p>
-                        <button onclick="window.location.href='${appDeepLink}'">Tap to Open Bayaan</button>
-                        <p><small>Code: ${code.substring(0, 20)}...</small></p>
-                    </div>
-                `;
-            }, 3000);
         }
 
-        window.onload = redirectToApp;
+        // Start immediately
+        window.addEventListener('load', redirectToApp);
     </script>
 </head>
 <body>
     <div style="text-align: center; padding: 50px;">
-        <h3>Login Successful!</h3>
-        <p>Redirecting to Bayaan app...</p>
+        <h3>Processing Amazon Login...</h3>
+        <p>Please wait while we redirect you back to Bayaan.</p>
     </div>
 </body>
 </html>
