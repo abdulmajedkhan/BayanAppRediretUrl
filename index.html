@@ -2,51 +2,20 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Redirecting to Bayaan</title>
     <script>
         function redirectToApp() {
-            // Get the full URL parameters
             const urlParams = new URLSearchParams(window.location.search);
-            
-            // Construct the app deep link - use 'auth' scheme (matches CallbackActivity)
+            // MUST match CallbackActivity: com.bayaanapp://auth
             const appDeepLink = `com.bayaanapp://auth?${urlParams.toString()}`;
-            
-            console.log('Redirecting to:', appDeepLink);
             
             // Immediate redirect
             window.location.href = appDeepLink;
-            
-            // Fallback: If still on page after 1 second, show instructions
-            setTimeout(() => {
-                if (!document.hidden) {
-                    document.body.innerHTML = `
-                        <div style="text-align: center; padding: 50px; font-family: Arial;">
-                            <h2>Redirecting to Bayaan...</h2>
-                            <p>If the app doesn't open automatically:</p>
-                            <button onclick="window.location.href='${appDeepLink}'" 
-                                    style="padding: 10px 20px; margin: 10px;">
-                                Tap to Open Bayaan
-                            </button>
-                            <br/>
-                            <button onclick="window.close()" 
-                                    style="padding: 10px 20px; margin: 10px;">
-                                Close Window
-                            </button>
-                        </div>
-                    `;
-                }
-            }, 1000);
         }
-
-        // Start redirect when page loads
         window.onload = redirectToApp;
     </script>
 </head>
 <body>
-    <div style="text-align: center; padding: 50px; font-family: Arial;">
-        <h3>Redirecting to Bayaan app...</h3>
-        <p>Please wait</p>
-    </div>
+    <h3>Redirecting to Bayaan app...</h3>
 </body>
 </html>
