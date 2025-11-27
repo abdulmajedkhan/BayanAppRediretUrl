@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html>
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,13 +16,6 @@
       font-size: 18px;
       color: #333;
     }
-    .open-app {
-      font-size: 20px;
-      color: blue;
-      text-decoration: underline;
-      margin-top: 20px;
-      display: block;
-    }
   </style>
 </head>
 <body>
@@ -33,24 +25,15 @@
   </div>
 
   <script>
+    // Run AFTER the page has loaded and text is visible
     window.addEventListener("load", function () {
-      // Grab query parameters from Amazon redirect
-      const query = window.location.search; // ?code=XYZ&scope=profile
+      const query = window.location.search; 
+      const redirect = "com.bayaanapp://auth/" + query;
 
-      // Android: custom scheme for deep link
-      const appLink = "com.bayaanapp://auth" + query;
-
-      // Create clickable link for iOS or if auto-click fails
-      const link = document.createElement('a');
-      link.href = appLink;
-      link.innerText = "Open in App";
-      link.className = "open-app";
-      document.body.appendChild(link);
-
-      // Attempt automatic redirect after short delay (works on Android)
+      // Delay so user can see message
       setTimeout(() => {
-        link.click();
-      }, 1000); // 1 second delay
+        window.location.href = redirect;
+      }, 2000); // 2s delay
     });
   </script>
 </body>
