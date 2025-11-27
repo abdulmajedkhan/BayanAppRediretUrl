@@ -8,7 +8,7 @@
   <p>Redirecting to Bayan app...</p>
   <script>
     const query = window.location.search; // ?code=XYZ
-    const deepLink = "com.bayaanapp://auth" + query;
+    const deepLink = "com.bayaanapp://auth/" + query;
     // Redirect to app
     window.location.replace(deepLink);
 
@@ -20,3 +20,4 @@
   </script>
 </body>
 </html>
+
