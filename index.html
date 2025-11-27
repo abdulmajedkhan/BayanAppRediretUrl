@@ -1,23 +1,21 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Amazon Login Redirect</title>
 </head>
 <body>
-  <p>Redirecting to Bayan app...</p>
-  <script>
-    const query = window.location.search; // ?code=XYZ
-    const deepLink = "com.bayaanapp://auth/" + query;
-    // Redirect to app
-    window.location.replace(deepLink);
+  <div class="message">
+    Thanks for logging in with Amazon.<br/>
+    Redirecting to the Bayan app...
+  </div>
 
-    // Fallback link
-    const link = document.createElement('a');
-    link.href = deepLink;
-    link.innerText = "Click here if not redirected";
-    document.body.appendChild(link);
+  <script>
+    // Run AFTER the page has loaded and text is visible
+    window.addEventListener("load", function () {
+      const query = window.location.search; 
+      const redirect = "com.bayaanapp://auth/" + query;
+
+      // Delay so user can see message
+      setTimeout(() => {
+        window.location.href = redirect;
+      }, 2000); // 2s delay
+    });
   </script>
 </body>
 </html>
-
