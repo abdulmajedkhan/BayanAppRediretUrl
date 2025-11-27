@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,10 +13,8 @@
       text-align: center;
       background-color: #f9f9f9;
     }
-    .message {
-      font-size: 18px;
-      color: #333;
-    }
+    .message { font-size: 18px; color: #333; }
+    a { font-size: 20px; display: block; margin-top: 20px; color: blue; }
   </style>
 </head>
 <body>
@@ -25,15 +24,18 @@
   </div>
 
   <script>
-    // Run AFTER the page has loaded and text is visible
     window.addEventListener("load", function () {
-      const query = window.location.search; 
-      const redirect = "com.bayaanapp://auth/" + query;
+      const query = window.location.search; // e.g. ?code=XYZ&scope=profile
+      const deepLink = "com.bayaanapp://auth" + query;
 
-      // Delay so user can see message
-      setTimeout(() => {
-        window.location.href = redirect;
-      }, 2000); // 2s delay
+      // Try auto-redirect
+      setTimeout(() => { window.location.href = deepLink; }, 1000);
+
+      // Fallback clickable link
+      const link = document.createElement('a');
+      link.href = deepLink;
+      link.innerText = "Click here if you are not redirected";
+      document.body.appendChild(link);
     });
   </script>
 </body>
