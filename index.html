@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,6 +17,13 @@
       font-size: 18px;
       color: #333;
     }
+    .open-app {
+      font-size: 20px;
+      color: blue;
+      text-decoration: underline;
+      margin-top: 20px;
+      display: block;
+    }
   </style>
 </head>
 <body>
@@ -24,18 +32,26 @@
     Redirecting to the Bayan app...
   </div>
 
-
-
   <script>
-  window.addEventListener("load", function () {
-    const query = window.location.search; 
-    const redirect = "com.bayaanapp://auth" + query; // cleaner
+    window.addEventListener("load", function () {
+      // Grab query parameters from Amazon redirect
+      const query = window.location.search; // ?code=XYZ&scope=profile
 
-    setTimeout(() => {
-      window.location.href = redirect;
-    }, 1500); // 1.5s delay
-  });
+      // Android: custom scheme for deep link
+      const appLink = "com.bayaanapp://auth" + query;
 
+      // Create clickable link for iOS or if auto-click fails
+      const link = document.createElement('a');
+      link.href = appLink;
+      link.innerText = "Open in App";
+      link.className = "open-app";
+      document.body.appendChild(link);
+
+      // Attempt automatic redirect after short delay (works on Android)
+      setTimeout(() => {
+        link.click();
+      }, 1000); // 1 second delay
+    });
+  </script>
 </body>
 </html>
-
