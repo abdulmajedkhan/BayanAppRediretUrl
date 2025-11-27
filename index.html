@@ -2,45 +2,21 @@
 <html>
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    body {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-      font-family: Arial, sans-serif;
-      text-align: center;
-      background-color: #f9f9f9;
-    }
-    .message { font-size: 18px; color: #333; }
-    a { font-size: 20px; display: block; margin-top: 20px; color: blue; }
-  </style>
+  <title>Amazon Login Redirect</title>
 </head>
 <body>
-  <div class="message">
-    Thanks for logging in with Amazon.<br/>
-    Redirecting to the Bayan app...
-  </div>
+  <p>Redirecting to Bayan app...</p>
+  <script>
+    const query = window.location.search; // ?code=XYZ
+    const deepLink = "com.bayaanapp://auth" + query;
+    // Redirect to app
+    window.location.replace(deepLink);
 
- <script>
-  window.addEventListener("load", function () {
-      const query = window.location.search; // ?code=XYZ
-      const deepLink = "com.bayaanapp://auth" + query;
-      // Try redirect
-      window.location.href = deepLink;
-
-      // Fallback clickable link
-      const link = document.createElement('a');
-      link.href = deepLink;
-      link.innerText = "Click here if you are not redirected";
-      document.body.appendChild(link);
-  });
-</script>
-
+    // Fallback link
+    const link = document.createElement('a');
+    link.href = deepLink;
+    link.innerText = "Click here if not redirected";
+    document.body.appendChild(link);
+  </script>
 </body>
 </html>
-
-
-
-
